@@ -1,0 +1,108 @@
+body {
+  font: 100%/1.5 system-ui, sans-serif;
+  display: flex;
+  flex-flow: column;
+  max-width: 80em;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 1em;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+#map circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+#map svg circle {
+  fill: var(--color);
+  fill-opacity: 60%;
+  stroke: white;
+  pointer-events: auto;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 1.5em; /* space between legend items */
+  margin-block: 1em;
+  width: 100%;
+  justify-content: center;
+}
+
+.legend-label {
+  font-weight: bold;
+  color: gray;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4em; /* small gap keeps each swatch close to its label */
+}
+
+.legend > div::before {
+  content: '';
+  width: 1em;
+  height: 1em;
+  border-radius: 50%; /* makes the swatch a circle */
+  background: var(--color);
+  border: 1px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); /* keeps the swatch visible on white */
+}
+
+.legend > div:first-child { text-align: left; }
+.legend > div:last-child { text-align: right; }
+
+#map svg {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  width: 100%; /* so margin-left: auto on the label can push it right */
+}
+
+header label {
+  margin-left: auto;
+}
+
+header label time,
+header label em {
+  display: block; /* own line, so updating the time doesn't move the slider */
+}
+
+header label em {
+  color: gray;
+  font-style: italic;
+}
